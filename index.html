@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Champions Freak 2026</title>
+    <!-- Importazione Nuovi Font Sportivi/Moderni -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Effetto "Pellicola/Vinile" leggerissimo -->
+    <div class="noise-overlay"></div>
+
+    <div class="header">
+        <div class="title-container">
+            <span class="subtitle">BENVENUTI AL DRAFT</span>
+            <h1>CHAMPIONS <span class="holo-text">FREAK</span></h1>
+        </div>
+        <div class="controls">
+            <div class="toggle-container">
+                <label class="switch">
+                    <input type="checkbox" id="admin-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span>Svela / Modifica</span>
+            </div>
+            <button id="extract-btn">Estrai Capitani</button>
+            <button id="export-btn" style="display: none;">Esporta in Excel</button>
+        </div>
+    </div>
+
+    <!-- Tabellone Squadre -->
+    <div id="teams-board"></div>
+
+    <div class="section-title">URNA GIOCATORI</div>
+    
+    <!-- Urna Fasce -->
+    <div id="urna-board"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
