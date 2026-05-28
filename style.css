@@ -1,0 +1,247 @@
+:root {
+    --bg-main: #eb5e00; 
+    --bg-gradient: radial-gradient(circle at 50% 0%, #ff7300 0%, #cc4400 100%);
+    --text-main: #ffffff;
+    --accent: #ff8c00;
+    --holo-grad: linear-gradient(135deg, #c7a4ff 0%, #87c0ff 25%, #ffffff 50%, #ffa3c4 75%, #ffe175 100%);
+    --font-title: 'Oswald', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: var(--font-body); 
+    background: var(--bg-gradient); 
+    background-attachment: fixed;
+    color: var(--text-main);
+    margin: 0; padding: 30px 20px;
+    display: flex; flex-direction: column; align-items: center; 
+    overflow-x: hidden; min-height: 100vh;
+}
+
+.noise-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 9999; opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.header {
+    width: 100%; max-width: 1550px; display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.title-container { display: flex; flex-direction: column; }
+.subtitle { font-size: 0.8rem; letter-spacing: 4px; font-weight: 700; margin-bottom: 0px; opacity: 0.9; }
+.header h1 { 
+    margin: 0; font-family: var(--font-title); font-size: 3.5rem; text-transform: uppercase; 
+    line-height: 1; letter-spacing: 1px; font-weight: 700;
+}
+
+.holo-text {
+    background: var(--holo-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 0px 8px rgba(255,255,255,0.3));
+}
+
+.controls { display: flex; align-items: center; gap: 20px; }
+
+#extract-btn, #export-btn {
+    background: #fff; color: #111; border: none; padding: 12px 26px;
+    font-family: var(--font-title); font-size: 1.1rem; border-radius: 4px; cursor: pointer; 
+    text-transform: uppercase; font-weight: 700; letter-spacing: 1px;
+    transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+#extract-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,255,255,0.3); }
+#extract-btn:disabled { background-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.4); cursor: not-allowed; box-shadow: none; }
+
+/* Stile speciale pulsante Excel */
+#export-btn {
+    background: #107c41; /* Verde Excel */
+    color: #fff;
+}
+#export-btn:hover { box-shadow: 0 8px 25px rgba(16, 124, 65, 0.5); }
+
+
+.toggle-container { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.switch { position: relative; display: inline-block; width: 40px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; border: 2px solid #fff; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background: var(--holo-grad); border-color: transparent; }
+input:checked + .slider:before { transform: translateX(18px); }
+
+/* =========================================
+   TABELLONE STILE MEDIA HOUSE
+   ========================================= */
+#teams-board {
+    width: 100%; max-width: 1550px; 
+    background-color: #080808; 
+    padding: 25px; 
+    border-radius: 12px;
+    display: grid; 
+    grid-template-columns: 50px repeat(8, minmax(0, 1fr)); 
+    gap: 12px 10px; 
+    margin-bottom: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    box-sizing: border-box;
+    height: fit-content; 
+    align-items: stretch;
+}
+
+.empty-cell { /* Vuoto */ }
+
+.team-header {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+    gap: 8px; text-align: center; padding-bottom: 5px; min-width: 0;
+}
+
+.team-logo {
+    width: 65px; height: 65px; 
+    object-fit: contain; 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6)); 
+}
+
+.team-name {
+    width: 100%; 
+    white-space: normal; 
+    word-wrap: break-word; line-height: 1.1;
+    font-family: var(--font-title); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;
+    color: #fff; font-weight: 600;
+}
+
+.row-label {
+    background: linear-gradient(135deg, #ff4500 0%, #ff8c00 100%);
+    color: #fff; font-family: var(--font-title); font-size: 1.1rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    height: 100%; min-height: 46px; 
+}
+
+.roster-slot {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 46px; height: 100%; 
+    background: #121212;
+    border: 1px solid #2a2a2a; 
+    border-radius: 4px;
+    min-width: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 4px; 
+    box-sizing: border-box;
+}
+
+.name-reveal-container { 
+    width: 100%; height: 100%; 
+    display: flex; align-items: center; justify-content: center; 
+    overflow: visible; 
+    min-width: 0; 
+}
+
+.player-name-slot { 
+    display: block; width: 100%;
+    font-weight: 800; color: #fff; text-align: center; z-index: 1; text-transform: uppercase; 
+    font-size: 0.75rem; 
+    line-height: 1.2; 
+    white-space: normal; 
+    word-wrap: break-word; 
+    overflow: visible;
+}
+
+/* =========================================
+   ACCENSIONE STANDARD
+   ========================================= */
+.roster-slot.filled { 
+    background: rgba(255, 69, 0, 0.05);
+    border: 1px solid transparent;
+    animation: slotActivate 0.8s ease-out forwards; 
+}
+@keyframes slotActivate {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.02); background: rgba(255, 85, 0, 0.6); box-shadow: 0 0 15px rgba(255, 85, 0, 0.8); }
+    100% { transform: scale(1); background: #ff5500; border-color: #ff4500; box-shadow: inset 0 0 10px rgba(0,0,0,0.4); }
+}
+
+/* =========================================
+   ACCENSIONE EPIC
+   ========================================= */
+.roster-slot.epic-filled { animation: epicSlotFlash 2.5s forwards; overflow: visible; }
+
+.epic-filled .burn-cover {
+    position: absolute; top: -1px; right: -1px; bottom: -1px; left: -1px;
+    width: 105%; background: #080808; z-index: 10; transform-origin: right; 
+    border-left: 3px solid #fff; box-shadow: -10px 0 20px rgba(255,255,255,0.3); 
+    animation: burnFuse 1.5s linear forwards;
+}
+.epic-filled .burn-cover::before {
+    content: ""; position: absolute; left: -10px; top: 50%; margin-top: -10px; width: 20px; height: 20px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff, 0 0 20px #c7a4ff, 0 0 40px #87c0ff; animation: coreFlicker 0.05s infinite alternate;
+}
+.epic-filled .sparks { position: absolute; left: -10px; top: 50%; width: 10px; height: 10px; z-index: 15; }
+.epic-filled .sparks::before {
+    content: ""; position: absolute; width: 4px; height: 4px; background: white; border-radius: 50%; box-shadow: -10px -15px 0 1px #fff, -25px 10px 0 2px #c7a4ff, -15px 20px 0 0px #fff, -5px -25px 0 1px #87c0ff; animation: chaoticSparks 0.25s infinite;
+}
+.epic-filled .sparks::after {
+    content: ""; position: absolute; width: 5px; height: 5px; background: #c7a4ff; border-radius: 50%; box-shadow: -30px -10px 0 1px #fff, -15px 30px 0 0px #87c0ff, -40px 5px 0 2px #fff; animation: chaoticSparks2 0.2s infinite;
+}
+.epic-filled .firework-explosion {
+    position: absolute; right: 50%; top: 50%; width: 6px; height: 6px; border-radius: 50%; z-index: 30; opacity: 0; animation: fireworkBang 2.5s forwards;
+}
+
+.epic-filled .player-name-slot {
+    color: #fff; opacity: 0; animation: textCoolDown 2.5s forwards;
+}
+
+@keyframes burnFuse { 0% { width: 105%; opacity: 1; } 90% { opacity: 1; } 100% { width: 0%; opacity: 0; display: none; } }
+@keyframes coreFlicker { 0% { transform: scale(0.7); opacity: 0.8; } 100% { transform: scale(1.4); opacity: 1; } }
+@keyframes chaoticSparks { 0% { transform: scale(1) translate(0, 0); opacity: 1; } 100% { transform: scale(0.3) translate(-60px, -40px); opacity: 0; } }
+@keyframes chaoticSparks2 { 0% { transform: scale(1) translate(0, 0); opacity: 1; } 100% { transform: scale(0.3) translate(-50px, 50px); opacity: 0; } }
+
+@keyframes fireworkBang {
+    0%, 58% { opacity: 0; transform: scale(0.1); box-shadow: none; }
+    60% { 
+        opacity: 1; transform: scale(1); background: #fff;
+        box-shadow: 0 -40px 0 4px #c7a4ff, 30px -30px 0 2px #fff, 40px 0 0 4px #87c0ff, 30px 30px 0 2px #fff, 0 40px 0 4px #c7a4ff, -30px 30px 0 2px #fff, -40px 0 0 4px #87c0ff, -30px -30px 0 2px #fff, 0 -15px 0 2px #c7a4ff;
+    }
+    65% { 
+        opacity: 0; transform: scale(2);
+        box-shadow: 0 -80px 0 0 #c7a4ff, 60px -60px 0 0 #fff, 80px 0 0 0 #87c0ff, 60px 60px 0 0 #fff, 0 80px 0 0 #c7a4ff, -60px 60px 0 0 #fff, -80px 0 0 0 #87c0ff, -60px -60px 0 0 #fff;
+    }
+    100% { opacity: 0; }
+}
+
+@keyframes epicSlotFlash {
+    0% { background: #121212; border-color: #2a2a2a; }
+    55% { border-color: #fff; background: rgba(255, 255, 255, 0.1); box-shadow: none; transform: scale(1); }
+    60% { background: rgba(255, 255, 255, 0.5); box-shadow: 0 0 40px rgba(255,255,255,0.8), inset 0 0 20px #fff; border-color: transparent; transform: scale(1.05); }
+    100% { background: #ff5500; border-color: #ff4500; box-shadow: inset 0 0 10px rgba(0,0,0,0.4); transform: scale(1); }
+}
+
+@keyframes textCoolDown {
+    0%, 55% { opacity: 0; transform: scale(0.8); }
+    60% { opacity: 1; filter: drop-shadow(0 0 15px rgba(255,255,255,1)); transform: scale(1.2); }
+    100% { opacity: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); transform: scale(1); }
+}
+
+/* =========================================
+   URNA GIOCATORI 
+   ========================================= */
+#urna-board { width: 100%; max-width: 1550px; display: flex; flex-direction: column; gap: 10px; }
+.section-title { font-family: var(--font-title); font-size: 1.6rem; margin-bottom: 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; letter-spacing: 1px;}
+
+.fascia { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 20px; transition: all 0.3s ease; }
+.fascia-header { font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; color: #fff; margin-bottom: 10px; display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 1px;}
+.fascia.extracted { opacity: 0.2; pointer-events: none; padding: 5px 20px; border-style: dashed; }
+.fascia.extracted .fascia-grid { display: none; }
+.fascia.extracted .fascia-header { margin-bottom: 0; }
+.player-card.assigned-card { display: none; }
+
+.fascia-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; min-height: 40px; }
+.player-card {
+    background: #fff; color: #111; border: none; padding: 8px; text-align: center;
+    border-radius: 4px; font-weight: 800; font-size: 0.75rem; cursor: grab; transition: all 0.2s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); text-transform: uppercase; 
+    white-space: normal; word-wrap: break-word; line-height: 1.2;
+}
+.player-card * { pointer-events: none; }
+.player-card:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.3); background: #f0f0f0; }
+.player-card.dragging { opacity: 0; }
+
+body:not(.admin-mode) .player-card .real-name { display: none; }
+body.admin-mode .player-card .secret-name { display: none; }
+body.admin-mode .player-card { background: rgba(255,255,255,0.1); color: #fff; border: 1px dashed #fff; box-shadow: none; }
