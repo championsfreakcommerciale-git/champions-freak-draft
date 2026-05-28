@@ -37,7 +37,7 @@ const exportBtn = document.getElementById('export-btn');
 let boardHTML = `<div class="empty-cell"></div>`;
 
 teams.forEach((teamName, teamIndex) => {
-    const logoSrc = `${teamName}.png`; 
+    const logoSrc = `${teamName}.png`;
     boardHTML += `
         <div class="team-header">
             <img class="team-logo" id="logo-${teamIndex}" src="${logoSrc}" alt="${teamName}">
